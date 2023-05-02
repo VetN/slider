@@ -1,3 +1,4 @@
+
 // замена картинки - это замена пути
 // т.е. при нажатии на кнопку необходимо изменить путь к новой картинке
 // 1 - необходимо как-то обратиться к тегу  
@@ -8,7 +9,7 @@
 
 // создаем индекс начальный и включаем функцию
 let slideInd = 1;
-showSlides();
+showSlides(slideInd);
 
 // функция которая вызывает функцию показа следующего слайда
 function nextSlide() {
@@ -19,26 +20,13 @@ function nextSlide() {
 function previousSlide() {
     showSlides(slideInd -= 1);
 }
-
-// функция, которая выз функцию вызова текущего слайда
-function itSlides(n) {
+// функция срабатывания индикатора
+function clickDot(n) {
     showSlides(slideInd = n);
-}
-
-/*function clickDot(n) {
-    showlides(slideInd = n);
-}
-*/
-
-/*function clickDot(n) {
-    let dots = document.getElementsByClassName("dot");
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace("active", "");
-    }
-}
-*/
-// сама функция показывающая слайд (исходя из заданного аргумента вызыв функции)
+} 
+// сама функция,  показывающая слайд (исходя из заданного аргумента вызыв функции)
 function showSlides(n) {
+    let i;
     let slides = document.getElementsByClassName("slide");    // обращается к эл-там с названием класса "slide"
     let dots = document.getElementsByClassName("dot");
     
@@ -47,12 +35,13 @@ function showSlides(n) {
     } else if (n < 1) {
         slideInd = slides.length
     }
-    for (let i of slides) {   // перебор каждого слайда
-        i.style.display = "none";
+    for (i = 0; i < slides.length; i++) {   // перебор каждого слайда
+        slides[i].style.display = "none";
     }
-    
-
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
     slides[slideInd - 1].style.display = "flex";
-   
+    dots[slideInd - 1].className += " active";
 }
 
